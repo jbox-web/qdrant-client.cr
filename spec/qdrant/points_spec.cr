@@ -4,8 +4,11 @@ Spectator.describe "Qdrant::Collection points" do
   let(name) { "spec_points_#{Random::Secure.hex(4)}" }
   subject(collection) { Qdrant::Collection.new(name) }
 
-  before_each { collection.ensure(dim: 4) }
-  after_each { collection.delete }
+  before_each do
+    skip("needs a running Qdrant at #{QDRANT_URL}") unless QDRANT_UP
+    collection.ensure(dim: 4)
+  end
+  after_each { collection.delete if QDRANT_UP }
 
   it "upserts (unit + batch) then counts and deletes by ids" do
     collection.upsert(1_i64, [0.1_f32, 0.2_f32, 0.3_f32, 0.4_f32])

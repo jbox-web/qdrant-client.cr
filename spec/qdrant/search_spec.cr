@@ -5,11 +5,12 @@ Spectator.describe "Qdrant::Collection#search" do
   subject(collection) { Qdrant::Collection.new(name) }
 
   before_each do
+    skip("needs a running Qdrant at #{QDRANT_URL}") unless QDRANT_UP
     collection.ensure(dim: 4)
     collection.upsert(1_i64, [0.9_f32, 0.1_f32, 0.0_f32, 0.0_f32])
     collection.upsert(2_i64, [0.0_f32, 0.0_f32, 0.1_f32, 0.9_f32])
   end
-  after_each { collection.delete }
+  after_each { collection.delete if QDRANT_UP }
 
   it "returns nearest hits as Qdrant::Hit{id, score}, closest first" do
     hits = collection.search([0.9_f32, 0.1_f32, 0.0_f32, 0.0_f32], top_k: 2)
