@@ -19,6 +19,9 @@ concurrency:
   group: pages
   cancel-in-progress: true
 
+# Requires repo Settings → Pages → Source = "GitHub Actions" (a 404 on deploy
+# means it isn't set). Re-running a failed run duplicates the github-pages
+# artifact and fails with "Multiple artifacts" — trigger a fresh run instead.
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
