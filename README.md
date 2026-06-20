@@ -1,6 +1,7 @@
 # qdrant-client
 
 [![CI](https://github.com/jbox-web/qdrant-client.cr/actions/workflows/ci.yml/badge.svg)](https://github.com/jbox-web/qdrant-client.cr/actions/workflows/ci.yml)
+[![Docs](https://github.com/jbox-web/qdrant-client.cr/actions/workflows/docs.yml/badge.svg)](https://jbox-web.github.io/qdrant-client.cr)
 [![Release](https://img.shields.io/github/v/release/jbox-web/qdrant-client.cr?include_prereleases&sort=semver)](https://github.com/jbox-web/qdrant-client.cr/releases)
 [![Crystal](https://img.shields.io/badge/crystal-%3E%3D%201.18-black?logo=crystal)](https://crystal-lang.org)
 [![License](https://img.shields.io/github/license/jbox-web/qdrant-client.cr)](LICENSE)

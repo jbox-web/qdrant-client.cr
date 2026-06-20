@@ -31,6 +31,10 @@ run = "bin/ameba"
 description = "Format the source"
 run = "crystal tool format src/ spec/"
 
+[tasks."dev:docs"]
+description = "Generate API docs into ./docs"
+run = "crystal docs"
+
 [tasks."dev:build"]
 description = "Compile-check the library"
 run = "crystal build --no-codegen src/qdrant.cr"
