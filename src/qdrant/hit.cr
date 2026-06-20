@@ -1,13 +1,15 @@
 module Qdrant
-  # Résultat de recherche, type stable exposé au consommateur.
+  # A search result — the stable type exposed to consumers.
   #
-  # SEUL endroit qui connaît les types générés (anti-corruption layer) :
-  # parse de `Qdrant::Api::ScoredPoint`. Le déballage du `Response(QueryPoints200Response)`
-  # (`.value.result.points`) vit côté `Collection#search`.
+  # The ONLY place that knows the generated types (anti-corruption layer):
+  # it parses `Qdrant::Api::ScoredPoint`. Unwrapping the
+  # `Response(QueryPoints200Response)` (`.value.result.points`) lives in
+  # `Collection#search`.
   #
-  # `id` est un rowid applicatif (Int64). La couche OpenAPI modélise l'id de point
-  # en `Int32` (`ExtendedPointId`) ; on élargit en `Int64` côté public — sûr tant
-  # que les ids restent < 2³¹. Les ids string (UUID) ne sont pas dans le working set.
+  # `id` is an application rowid (Int64). The OpenAPI layer models the point id
+  # as `Int32` (`ExtendedPointId`); we widen it to `Int64` in the public API —
+  # safe as long as ids stay below 2³¹. String ids (UUIDs) aren't in the working
+  # set.
   struct Hit
     getter id : Int64
     getter score : Float32
