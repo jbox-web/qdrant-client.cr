@@ -1,0 +1,19 @@
+name: qdrant-client
+version: 0.1.0
+crystal: ">= 1.18.0"
+license: MIT
+authors:
+  - Nicolas Rodriguez <nico@nicoladmin.fr>
+
+dependencies:
+  qdrant-api:
+    github: jbox-web/qdrant-api.cr
+    branch: master   # passer à `version: ~> 0.1` dès qu'un tag v0.1.0 est poussé
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 1.6.0
+  spectator:
+    gitlab: arctic-fox/spectator
+    version: ~> 0.12.0

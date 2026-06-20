@@ -1,0 +1,45 @@
+[tools]
+crystal = "1.18.2"
+
+[vars]
+SPEC_OPTS = "{% if exec(command='(tty -s && echo true) || echo false') == 'true' %}--verbose{% endif %}"
+
+[env]
+QDRANT_URL = "http://localhost:6333"
+
+[tasks."dev:deps"]
+description = "Install dependencies"
+run = "shards install"
+
+[tasks."dev:qdrant-up"]
+description = "Start a local Qdrant for integration specs"
+run = "docker run -d --rm -p 6333:6333 --name qdrant-test qdrant/qdrant:v1.12.0"
+
+[tasks."dev:qdrant-down"]
+description = "Stop the local Qdrant"
+run = "docker rm -f qdrant-test"
+
+[tasks."dev:spec"]
+description = "Run the spec suite (needs Qdrant up)"
+run = "crystal spec {{vars.SPEC_OPTS}}"
+
+[tasks."dev:ameba"]
+description = "Run static code analysis"
+run = "bin/ameba"
+
+[tasks."dev:format"]
+description = "Format the source"
+run = "crystal tool format src/ spec/"
+
+[tasks."dev:build"]
+description = "Compile-check the library"
+run = "crystal build --no-codegen src/qdrant.cr"
+
+[tasks."dev:check"]
+description = "Build-check, lint and test in one shot"
+run = "mise dev:build && mise dev:ameba && mise dev:spec"
+
+# TODO: remove me when https://github.com/crystal-lang/crystal/issues/16746 is fixed
+[tasks."dev:fix-shards-command"]
+description = "Fix missing shards command (macOS CI)"
+run = "cp $HOME/.local/share/mise/installs/crystal/{{tools.crystal.version}}/embedded/bin/shards $HOME/.local/share/mise/installs/crystal/{{tools.crystal.version}}/bin/"

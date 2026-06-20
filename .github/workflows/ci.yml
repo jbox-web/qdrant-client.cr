@@ -1,0 +1,41 @@
+---
+name: CI
+
+permissions: {}
+
+on:
+  push:
+    branches: ['**']
+    paths-ignore: ["**.md"]
+  pull_request:
+    branches: ['**']
+    paths-ignore: ["**.md"]
+  schedule:
+    - cron: '0 4 1 * *'
+  workflow_dispatch:
+
+jobs:
+  ameba:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@v4
+      - run: mise dev:deps
+      - run: mise dev:ameba
+
+  test_linux:
+    runs-on: ubuntu-latest
+    services:
+      qdrant:
+        image: qdrant/qdrant:v1.12.0
+        ports:
+          - 6333:6333
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: jdx/mise-action@v4
+      - run: mise dev:deps
+      - run: mise dev:spec

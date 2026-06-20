@@ -1,0 +1,8 @@
+/docs/
+/lib/
+/bin/*
+!/bin/.keep
+.DS_Store
+/.spectator-failures
+/.claude/settings.local.json
+/shard.lock
