@@ -16,6 +16,8 @@ delete by id, count — and nothing else.
 > sparse/multi-vectors…)? Reach for [`qdrant-api`](https://github.com/jbox-web/qdrant-api.cr)
 > directly. This shard is the opinionated sugar on top of it.
 
+📖 **[API documentation](https://jbox-web.github.io/qdrant-client.cr)**
+
 ## Features
 
 - **Stable, hand-written API** — `Qdrant::Collection` + `Qdrant::Hit`. No generated
